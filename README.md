@@ -1,29 +1,43 @@
-# Portfólio - Cauê Mateus Gil
+# 🚀 Olá, eu sou o Cauê Gil (ghost)
 
-Este repositório contém o código fonte do meu portfólio profissional hospedado no GitHub Pages.
+**Desenvolvedor Backend | Infraestrutura & Administrador de Sistemas Linux**  
+📍 Araraquara, SP — Brasil
 
-## Tecnologias Utilizadas
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/cauê-gil/)
+[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/ZzftmzZ)
+[![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:caue.mgil@gmail.com)
 
-* HTML5 Semântico
-* CSS3 (Custom Properties, Flexbox)
-* Tema de Cores: [Catppuccin Mocha](https://github.com/catppuccin/catppuccin)
-* Open Graph & JSON-LD para SEO avançado
+---
 
-## Estrutura de Arquivos
+## 🛠️ Tecnologias e Habilidades
 
-```text
-/
-├── index.html       # Página principal e única
-├── css/
-│   └── style.css    # Estilos do tema Catppuccin
-├── js/              # (Opcional) Scripts futuros
-└── assets/          # (Opcional) Imagens, ícones, etc.
-```
+- **Linguagens & Frameworks:** Python, Django, Flask, Django REST Framework, Java
+- **Sistemas Operacionais & Linux:** Vasto conhecimento em distribuições Linux (Arch Linux, Debian/Ubuntu Server, etc.), Shell Script, gerenciamento de utilizadores/permissões e interoperabilidade Linux/Windows.
+- **Redes & SysAdmin:** Infraestrutura de rede (IPv4/IPv6, sub-redes, gateways), VPN, Proxy, Windows Server, Zabbix e Grafana para monitorização.
+- **DevOps & Containers:** Docker, Docker Compose, Git & GitHub.
+- **Bancos de Dados:** PostgreSQL, MySQL.
+- **Hardware & Suporte:** Montagem e manutenção preventiva/corretiva de computadores, diagnóstico de falhas e infraestrutura física de rede (cabeamento).
 
-## Como usar
+---
 
-1. Clone o repositório ou baixe o arquivo zip.
-2. Edite o arquivo `index.html` e substitua `SEU-LINKEDIN-AQUI` pelo seu perfil real do LinkedIn.
-3. Se quiser adicionar imagens (favicon, og-image), coloque-as na pasta `assets` e descomente as linhas `<link rel="icon"...>` e `<meta property="og:image"...>` no `index.html`.
-4. Faça o push para o branch `main` do seu repositório `curriculo-web`.
-5. Vá nas configurações do repositório no GitHub > Pages e ative a publicação a partir da branch `main`.
+## 📁 Projetos em Destaque
+
+### 🏛️ [People's Court](https://github.com/ZzftmzZ)
+Plataforma web full-stack para resolução de disputas de consumidores e conformidade com a LGPD.
+- **Techs:** Django, PostgreSQL, Docker, Docker Compose.
+
+### ⚡ [TaskAPI](https://github.com/ZzftmzZ)
+API RESTful completa para gestão de tarefas, focada em segurança e boas práticas de desenvolvimento.
+- **Techs:** Django 6, Django REST Framework, JWT Authentication, PostgreSQL, Docker.
+
+### 🛡️ [Proteja-Já](https://github.com/ZzftmzZ)
+Aplicação web para prevenção de fraudes e verificação da reputação de empresas em tempo real através de consumo de APIs externas.
+- **Techs:** Python, Django, REST APIs.
+
+### 📊 [MacroLab](https://github.com/ZzftmzZ)
+Calculadora para acompanhamento de saúde, cálculo de Taxa Metabólica Basal e distribuição de macronutrientes.
+- **Techs:** Python, Flask.
+
+---
+
+📫 **Contacto:** [caue.mgil@gmail.com](mailto:caue.mgil@gmail.com) | 📱 (16) 99732-9180
