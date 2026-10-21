@@ -1,5 +1,4 @@
-# 🚀 Olá, eu sou o Cauê Gil (ghost)
-
+# 🚀 Olá, eu sou o Cauê Gil
 **Desenvolvedor Backend | Infraestrutura & Administrador de Sistemas Linux**  
 📍 Araraquara, SP — Brasil
 
