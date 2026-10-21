@@ -14,10 +14,10 @@
     <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%23101828%27/%3E%3Ctext x=%2716%27 y=%2722%27 font-size=%2716%27 text-anchor=%27middle%27 font-family=%27monospace%27 font-weight=%27700%27 fill=%27%238FA8FF%27%3ECG%3C/text%3E%3C/svg%3E">
-    <meta name="theme-color" content="#101828" media="(prefers-color-scheme: dark)">
-    <meta name="theme-color" content="#F2F4F7" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#080c14" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)">
     <link rel="stylesheet" href="style.css">
     <meta property="og:locale" content="pt_BR">
     <meta property="og:type" content="profile">
@@ -85,67 +85,195 @@
       ]
     }
     </script>
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem('theme');
+          var d = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (t === 'dark' || (!t && d)) document.documentElement.classList.add('dark');
+        } catch (e) {}
+      })();
+    </script>
 </head>
 <body>
-    <div class="wrap">
-        <header class="top">
-            <p class="where">Araraquara, SP — Brasil</p>
-            <h1>Cauê Mateus Gil</h1>
-            <p class="role">Desenvolvedor Backend e Administrador de Sistemas Linux. Python, Django, Docker e infraestrutura.</p>
-            <nav class="links" aria-label="Contato">
-                <a href="curriculo.pdf" download="Curriculo-Caue-Mateus-Gil.pdf" class="btn-download">Baixar currículo (PDF)</a>
-                <a href="https://github.com/ZzftmzZ" target="_blank" rel="noopener noreferrer">GitHub</a>
-                <a href="https://www.linkedin.com/in/cauê-gil/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-                <a href="mailto:caue.mgil@gmail.com">caue.mgil@gmail.com</a>
+    <header class="nav" id="nav">
+        <div class="nav-in">
+            <a href="#hero" class="brand" aria-label="Cauê Mateus Gil - Início">
+                <span class="logo">CG</span>
+                <span class="brand-t"><b>Cauê Mateus Gil</b><small>Backend Dev</small></span>
+            </a>
+            <nav class="pill" id="menu" aria-label="Seções">
+                <a href="#hero">Início</a>
+                <a href="#about">Sobre</a>
+                <a href="#experience">Experiência</a>
+                <a href="#skills">Tecnologias</a>
+                <a href="#projects">Projetos</a>
+                <a href="#education">Formação</a>
+                <a href="#contact">Contato</a>
             </nav>
-        </header>
+            <div class="actions">
+                <button class="icon-btn" id="theme" type="button" aria-label="Alternar tema">◐</button>
+                <button class="icon-btn burger" id="burger" type="button" aria-label="Abrir menu" aria-expanded="false">☰</button>
+            </div>
+        </div>
+    </header>
 
-        <main>
-            <section class="projects" aria-labelledby="proj">
-                <h2 id="proj" class="sr">Projetos</h2>
-                <div class="term">
-                    <div class="term-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="cmd">~/projetos $ docker compose ps</span></div>
-                    <ul class="svc">
-                        <li>
-                            <div class="svc-head"><a href="https://github.com/ZzftmzZ/People-s-Court" target="_blank" rel="noopener noreferrer">peoples-court</a><span class="up">up</span></div>
-                            <p>Plataforma web para resolução de disputas de consumidores e conformidade com a LGPD.</p>
-                            <p class="stack">Django · PostgreSQL · Docker Compose</p>
-                        </li>
-                        <li>
-                            <div class="svc-head"><span class="name">taskapi</span><span class="up">up</span></div>
-                            <p>API RESTful de gestão de tarefas com autenticação JWT e documentação estruturada.</p>
-                            <p class="stack">Python · Django 6 · DRF · PostgreSQL · Docker</p>
-                        </li>
-                        <li>
-                            <div class="svc-head"><a href="https://github.com/ZzftmzZ/guardiao-antigolpes" target="_blank" rel="noopener noreferrer">proteja-ja</a><span class="up">up</span></div>
-                            <p>Prevenção de fraudes e verificação de empresas por integração com APIs externas.</p>
-                            <p class="stack">Python · Django · APIs REST</p>
-                        </li>
-                        <li>
-                            <div class="svc-head"><a href="https://github.com/ZzftmzZ/calculadora-fitness" target="_blank" rel="noopener noreferrer">macrolab</a><span class="up">up</span></div>
-                            <p>Calculadora de Taxa Metabólica Basal e distribuição de macronutrientes.</p>
-                            <p class="stack">Python · Flask</p>
-                        </li>
-                    </ul>
+    <main>
+        <section id="hero" class="hero grid-bg">
+            <div class="glow"></div>
+            <div class="hero-in">
+                <p class="badge-pill"><span class="ping"></span>Araraquara, SP — Brasil</p>
+                <p class="eyebrow">Olá, eu sou</p>
+                <h1>Cauê Mateus Gil</h1>
+                <p class="headline">Desenvolvedor Backend &amp; SysAdmin Linux</p>
+                <p class="term-line"><span class="prompt">$</span> <span id="phrase">docker compose up -d</span></p>
+                <p class="lead">Técnico em Informática pelo Senac. Construo APIs e aplicações web com Python e Django, empacoto tudo com Docker e administro servidores Linux.</p>
+                <div class="cta">
+                    <a href="#projects" class="btn primary">Ver projetos</a>
+                    <a href="curriculo.pdf" download="Curriculo-Caue-Mateus-Gil.pdf" class="btn-download btn ghost">Baixar currículo</a>
+                    <a href="https://github.com/ZzftmzZ" target="_blank" rel="noopener noreferrer" class="btn ghost">GitHub</a>
+                    <a href="https://www.linkedin.com/in/cauê-gil/" target="_blank" rel="noopener noreferrer" class="btn ghost">LinkedIn</a>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <section class="skills" aria-labelledby="stack">
-                <h2 id="stack">Tecnologias</h2>
-                <dl>
-                    <div><dt>Backend</dt><dd>Python, Django, Django REST Framework, Flask, Java</dd></div>
-                    <div><dt>Linux</dt><dd>Arch Linux, Debian/Ubuntu Server, Shell Script, usuários e permissões, interoperabilidade Linux/Windows</dd></div>
-                    <div><dt>Redes e SysAdmin</dt><dd>IPv4/IPv6, sub-redes, gateways, VPN, Proxy, Windows Server, Zabbix, Grafana</dd></div>
-                    <div><dt>DevOps</dt><dd>Docker, Docker Compose, Git e GitHub</dd></div>
-                    <div><dt>Bancos de dados</dt><dd>PostgreSQL, MySQL</dd></div>
-                    <div><dt>Hardware</dt><dd>Montagem, manutenção preventiva e corretiva, diagnóstico de falhas, cabeamento de rede</dd></div>
-                </dl>
-            </section>
-        </main>
+        <section id="about" class="sec">
+            <div class="wrap narrow">
+                <div class="head"><p class="tag">Sobre</p><h2>Quem sou eu</h2></div>
+                <p class="about">Sou organizado, aprendo rápido e gosto de entender como as coisas funcionam por baixo: do código Python ao servidor onde ele roda. Já atuei em rotinas administrativas, atendimento ao cliente e vendas, o que me deu comunicação e jeito para trabalhar sob pressão. Hoje uso minha base técnica para resolver problemas e melhorar processos.</p>
+            </div>
+        </section>
 
-        <footer>
-            <p>&copy; 2026 Cauê Mateus Gil</p>
-        </footer>
-    </div>
+        <section id="experience" class="sec alt">
+            <div class="wrap narrow">
+                <div class="head"><p class="tag">Experiência</p><h2>Trajetória</h2></div>
+                <ol class="timeline">
+                    <li><h3>Jovem Aprendiz Administrativo</h3><p class="meta">Sucocitrico Cutrale Ltda · Atual</p><p>Suporte às rotinas de escritório, controle de documentos físicos e digitais, atualização de bancos de dados internos e relatórios administrativos.</p></li>
+                    <li><h3>Atendente de Lanchonete</h3><p class="meta">McDonald's · Abr/2026 – Atual</p><p>Atendimento direto ao cliente, operação de caixa e trabalho em equipe sob alta demanda.</p></li>
+                    <li><h3>Monitor (CFC) e Comandante de Tropa</h3><p class="meta">Exército Brasileiro · Mar/2026 – Ago/2026</p><p>Curso de Formação de Cabos, auxiliar de instrução e comando de tropa: liderança e gestão de equipe sob pressão.</p></li>
+                    <li><h3>Técnico de Informática</h3><p class="meta">Freelance · 08/2025 – Atual</p><p>Manutenção preventiva e corretiva de hardware, suporte a usuários e diagnóstico de falhas.</p></li>
+                </ol>
+            </div>
+        </section>
+
+        <section id="skills" class="sec">
+            <div class="wrap">
+                <div class="head"><p class="tag">Tecnologias</p><h2>Stack e ferramentas</h2></div>
+                <div class="cards3">
+                    <article class="card"><h3>Backend</h3><div class="chips"><span class="hl">Python</span><span class="hl">Django</span><span class="hl">DRF</span><span>Flask</span><span>Java</span></div></article>
+                    <article class="card"><h3>Linux</h3><div class="chips"><span class="hl">Arch Linux</span><span class="hl">Debian/Ubuntu Server</span><span>Shell Script</span><span>Permissões</span></div></article>
+                    <article class="card"><h3>Redes &amp; SysAdmin</h3><div class="chips"><span>IPv4/IPv6</span><span>Sub-redes</span><span>VPN</span><span>Proxy</span><span>Windows Server</span><span>Zabbix</span><span>Grafana</span></div></article>
+                    <article class="card"><h3>DevOps</h3><div class="chips"><span class="hl">Docker</span><span class="hl">Docker Compose</span><span>Git</span><span>GitHub</span></div></article>
+                    <article class="card"><h3>Bancos de dados</h3><div class="chips"><span class="hl">PostgreSQL</span><span>MySQL</span></div></article>
+                    <article class="card"><h3>Hardware</h3><div class="chips"><span>Montagem</span><span>Manutenção</span><span>Diagnóstico</span><span>Cabeamento de rede</span></div></article>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="sec alt">
+            <div class="wrap">
+                <div class="head"><p class="tag">Projetos</p><h2>Projetos em destaque</h2></div>
+                <div class="cards2">
+                    <article class="proj">
+                        <div class="cover c1"><span class="cat">Django</span><span class="mono-s">Django + PostgreSQL</span></div>
+                        <div class="proj-b">
+                            <h3>People's Court</h3>
+                            <p>Plataforma web full-stack para resolução de disputas de consumidores e conformidade com a LGPD.</p>
+                            <div class="chips sm"><span>Django</span><span>PostgreSQL</span><span>Docker Compose</span></div>
+                            <a href="https://github.com/ZzftmzZ/People-s-Court" target="_blank" rel="noopener noreferrer" class="more">Ver no GitHub</a>
+                        </div>
+                    </article>
+                    <article class="proj">
+                        <div class="cover c2"><span class="cat">API REST</span><span class="mono-s">Django 6 + DRF</span></div>
+                        <div class="proj-b">
+                            <h3>TaskAPI</h3>
+                            <p>API RESTful de gestão de tarefas com autenticação JWT e documentação estruturada.</p>
+                            <div class="chips sm"><span>Python</span><span>DRF</span><span>JWT</span><span>PostgreSQL</span><span>Docker</span></div>
+                        </div>
+                    </article>
+                    <article class="proj">
+                        <div class="cover c3"><span class="cat">Django</span><span class="mono-s">Django + APIs REST</span></div>
+                        <div class="proj-b">
+                            <h3>Proteja-Já</h3>
+                            <p>Prevenção de fraudes e verificação de empresas por integração com APIs externas.</p>
+                            <div class="chips sm"><span>Python</span><span>Django</span><span>APIs REST</span></div>
+                            <a href="https://github.com/ZzftmzZ/guardiao-antigolpes" target="_blank" rel="noopener noreferrer" class="more">Ver no GitHub</a>
+                        </div>
+                    </article>
+                    <article class="proj">
+                        <div class="cover c4"><span class="cat">Flask</span><span class="mono-s">Python + Flask</span></div>
+                        <div class="proj-b">
+                            <h3>MacroLab</h3>
+                            <p>Calculadora de Taxa Metabólica Basal e distribuição de macronutrientes.</p>
+                            <div class="chips sm"><span>Python</span><span>Flask</span></div>
+                            <a href="https://github.com/ZzftmzZ/calculadora-fitness" target="_blank" rel="noopener noreferrer" class="more">Ver no GitHub</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="education" class="sec">
+            <div class="wrap narrow">
+                <div class="head"><p class="tag">Formação</p><h2>Educação</h2></div>
+                <div class="edu">
+                    <article class="card"><h3>Técnico em Informática</h3><p class="meta">Senac Campus Araraquara · Fev/2025 – Ago/2026</p></article>
+                    <article class="card"><h3>Aprendizagem Profissional em Gestão e Serviços Administrativos</h3><p class="meta">CEPROESC · Atual</p></article>
+                    <article class="card"><h3>Inglês</h3><p class="meta">Nível intermediário</p></article>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="sec alt">
+            <div class="wrap narrow center">
+                <div class="head"><p class="tag">Contato</p><h2>Vamos conversar?</h2></div>
+                <p class="about">Aberto a vagas e oportunidades de estágio ou júnior em desenvolvimento backend e infraestrutura.</p>
+                <div class="cta">
+                    <a href="mailto:caue.mgil@gmail.com" class="btn primary">caue.mgil@gmail.com</a>
+                    <a href="https://www.linkedin.com/in/cauê-gil/" target="_blank" rel="noopener noreferrer" class="btn ghost">LinkedIn</a>
+                    <a href="https://github.com/ZzftmzZ" target="_blank" rel="noopener noreferrer" class="btn ghost">GitHub</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer><p>&copy; 2026 Cauê Mateus Gil</p></footer>
+
+    <script>
+      (function () {
+        var root = document.documentElement;
+        document.getElementById('theme').addEventListener('click', function () {
+          var dark = root.classList.toggle('dark');
+          try { localStorage.setItem('theme', dark ? 'dark' : 'light'); } catch (e) {}
+        });
+        var burger = document.getElementById('burger'), menu = document.getElementById('menu');
+        burger.addEventListener('click', function () {
+          var open = menu.classList.toggle('open');
+          burger.setAttribute('aria-expanded', open);
+        });
+        menu.addEventListener('click', function (e) { if (e.target.tagName === 'A') { menu.classList.remove('open'); burger.setAttribute('aria-expanded', false); } });
+        var nav = document.getElementById('nav');
+        function onScroll() { nav.classList.toggle('scrolled', window.scrollY > 20); }
+        onScroll(); window.addEventListener('scroll', onScroll, { passive: true });
+        var links = {};
+        menu.querySelectorAll('a').forEach(function (a) { links[a.getAttribute('href').slice(1)] = a; });
+        var io = new IntersectionObserver(function (es) {
+          es.forEach(function (e) {
+            if (e.isIntersecting) {
+              Object.keys(links).forEach(function (k) { links[k].classList.toggle('active', k === e.target.id); });
+            }
+          });
+        }, { rootMargin: '-45% 0px -50% 0px' });
+        document.querySelectorAll('main section[id]').forEach(function (s) { io.observe(s); });
+        var phrases = ['docker compose up -d', 'python manage.py runserver', 'sudo pacman -Syu', 'git push origin main'];
+        var el = document.getElementById('phrase'), i = 0;
+        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          setInterval(function () {
+            el.classList.add('fade');
+            setTimeout(function () { i = (i + 1) % phrases.length; el.textContent = phrases[i]; el.classList.remove('fade'); }, 300);
+          }, 2800);
+        }
+      })();
+    </script>
 </body>
 </html>
