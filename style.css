@@ -73,6 +73,8 @@ h1 span {
 
 .contact-info {
   display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   gap: 1.5rem;
 }
 
@@ -149,4 +151,20 @@ footer {
   text-align: center;
   color: var(--overlay0);
   font-size: 0.9rem;
+}
+
+.contact-info a.btn-download {
+  background-color: var(--mauve);
+  color: var(--crust);
+  padding: 0.5rem 1.1rem;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.contact-info a.btn-download:hover {
+  background-color: var(--pink);
+  color: var(--crust);
+  text-decoration: none;
+  transform: translateY(-1px);
 }
