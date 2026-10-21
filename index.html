@@ -14,11 +14,10 @@
     <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <link rel="apple-touch-icon" href="apple-touch-icon.png">
-    <meta name="theme-color" content="#1e1e2e" media="(prefers-color-scheme: dark)">
-    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%23101828%27/%3E%3Ctext x=%2716%27 y=%2722%27 font-size=%2716%27 text-anchor=%27middle%27 font-family=%27monospace%27 font-weight=%27700%27 fill=%27%238FA8FF%27%3ECG%3C/text%3E%3C/svg%3E">
+    <meta name="theme-color" content="#101828" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#F2F4F7" media="(prefers-color-scheme: light)">
     <link rel="stylesheet" href="style.css">
     <meta property="og:locale" content="pt_BR">
     <meta property="og:type" content="profile">
@@ -88,56 +87,64 @@
     </script>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>🚀 Olá, eu sou o Cauê Gil</h1>
-            <p class="subtitle"><strong>Desenvolvedor Backend | Infraestrutura & Administrador de Sistemas Linux</strong></p>
-            <p class="location">📍 Araraquara, SP — Brasil</p>
-            <div class="contact-info">
-                <a href="https://www.linkedin.com/in/cauê-gil/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+    <div class="wrap">
+        <header class="top">
+            <p class="where">Araraquara, SP — Brasil</p>
+            <h1>Cauê Mateus Gil</h1>
+            <p class="role">Desenvolvedor Backend e Administrador de Sistemas Linux. Python, Django, Docker e infraestrutura.</p>
+            <nav class="links" aria-label="Contato">
+                <a href="curriculo.pdf" download="Curriculo-Caue-Mateus-Gil.pdf" class="btn-download">Baixar currículo (PDF)</a>
                 <a href="https://github.com/ZzftmzZ" target="_blank" rel="noopener noreferrer">GitHub</a>
-                <a href="mailto:caue.mgil@gmail.com">Email</a>
-                <a href="curriculo.pdf" download="Curriculo-Caue-Gil.pdf" class="btn-download">📄 Baixar Currículo</a>
-            </div>
+                <a href="https://www.linkedin.com/in/cauê-gil/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                <a href="mailto:caue.mgil@gmail.com">caue.mgil@gmail.com</a>
+            </nav>
         </header>
+
         <main>
-            <section class="skills">
-                <h2>🛠️ Tecnologias e Habilidades</h2>
-                <ul>
-                    <li><strong>Linguagens & Frameworks:</strong> Python, Django, Flask, Django REST Framework, Java</li>
-                    <li><strong>Sistemas Operacionais & Linux:</strong> Vasto conhecimento em distribuições Linux (Arch Linux, Debian/Ubuntu Server, etc.), Shell Script, gerenciamento de utilizadores/permissões e interoperabilidade Linux/Windows.</li>
-                    <li><strong>Redes & SysAdmin:</strong> Infraestrutura de rede (IPv4/IPv6, sub-redes, gateways), VPN, Proxy, Windows Server, Zabbix e Grafana para monitorização.</li>
-                    <li><strong>DevOps & Containers:</strong> Docker, Docker Compose, Git & GitHub.</li>
-                    <li><strong>Bancos de Dados:</strong> PostgreSQL, MySQL.</li>
-                    <li><strong>Hardware & Suporte:</strong> Montagem e manutenção preventiva/corretiva de computadores, diagnóstico de falhas e infraestrutura física de rede (cabeamento).</li>
-                </ul>
+            <section class="projects" aria-labelledby="proj">
+                <h2 id="proj" class="sr">Projetos</h2>
+                <div class="term">
+                    <div class="term-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="cmd">~/projetos $ docker compose ps</span></div>
+                    <ul class="svc">
+                        <li>
+                            <div class="svc-head"><a href="https://github.com/ZzftmzZ/People-s-Court" target="_blank" rel="noopener noreferrer">peoples-court</a><span class="up">up</span></div>
+                            <p>Plataforma web para resolução de disputas de consumidores e conformidade com a LGPD.</p>
+                            <p class="stack">Django · PostgreSQL · Docker Compose</p>
+                        </li>
+                        <li>
+                            <div class="svc-head"><span class="name">taskapi</span><span class="up">up</span></div>
+                            <p>API RESTful de gestão de tarefas com autenticação JWT e documentação estruturada.</p>
+                            <p class="stack">Python · Django 6 · DRF · PostgreSQL · Docker</p>
+                        </li>
+                        <li>
+                            <div class="svc-head"><a href="https://github.com/ZzftmzZ/guardiao-antigolpes" target="_blank" rel="noopener noreferrer">proteja-ja</a><span class="up">up</span></div>
+                            <p>Prevenção de fraudes e verificação de empresas por integração com APIs externas.</p>
+                            <p class="stack">Python · Django · APIs REST</p>
+                        </li>
+                        <li>
+                            <div class="svc-head"><a href="https://github.com/ZzftmzZ/calculadora-fitness" target="_blank" rel="noopener noreferrer">macrolab</a><span class="up">up</span></div>
+                            <p>Calculadora de Taxa Metabólica Basal e distribuição de macronutrientes.</p>
+                            <p class="stack">Python · Flask</p>
+                        </li>
+                    </ul>
+                </div>
             </section>
-            <section class="projects">
-                <h2>📁 Projetos em Destaque</h2>
-                <div class="project-card">
-                    <h3>🏛️ <a href="https://github.com/ZzftmzZ/People-s-Court" target="_blank" rel="noopener noreferrer">People's Court</a></h3>
-                    <p>Plataforma web full-stack para resolução de disputas de consumidores e conformidade com a LGPD.</p>
-                    <p><strong>Techs:</strong> Django, PostgreSQL, Docker, Docker Compose.</p>
-                </div>
-                <div class="project-card">
-                    <h3>⚡ TaskAPI</h3>
-                    <p>API RESTful completa para gestão de tarefas com autenticação JWT e documentação estruturada.</p>
-                    <p><strong>Techs:</strong> Python, Django 6, Django REST Framework, PostgreSQL, Docker.</p>
-                </div>
-                <div class="project-card">
-                    <h3>🛡️ <a href="https://github.com/ZzftmzZ/guardiao-antigolpes" target="_blank" rel="noopener noreferrer">Proteja-Já</a></h3>
-                    <p>Aplicação web focada em prevenção de fraudes e verificação de empresas através de integração com APIs externas.</p>
-                    <p><strong>Techs:</strong> Python, Django, APIs REST.</p>
-                </div>
-                <div class="project-card">
-                    <h3>📊 <a href="https://github.com/ZzftmzZ/calculadora-fitness" target="_blank" rel="noopener noreferrer">MacroLab</a></h3>
-                    <p>Calculadora para acompanhamento de saúde, cálculo de Taxa Metabólica Basal e distribuição de macronutrientes.</p>
-                    <p><strong>Techs:</strong> Python, Flask.</p>
-                </div>
+
+            <section class="skills" aria-labelledby="stack">
+                <h2 id="stack">Tecnologias</h2>
+                <dl>
+                    <div><dt>Backend</dt><dd>Python, Django, Django REST Framework, Flask, Java</dd></div>
+                    <div><dt>Linux</dt><dd>Arch Linux, Debian/Ubuntu Server, Shell Script, usuários e permissões, interoperabilidade Linux/Windows</dd></div>
+                    <div><dt>Redes e SysAdmin</dt><dd>IPv4/IPv6, sub-redes, gateways, VPN, Proxy, Windows Server, Zabbix, Grafana</dd></div>
+                    <div><dt>DevOps</dt><dd>Docker, Docker Compose, Git e GitHub</dd></div>
+                    <div><dt>Bancos de dados</dt><dd>PostgreSQL, MySQL</dd></div>
+                    <div><dt>Hardware</dt><dd>Montagem, manutenção preventiva e corretiva, diagnóstico de falhas, cabeamento de rede</dd></div>
+                </dl>
             </section>
         </main>
+
         <footer>
-            <p>&copy; 2026 Cauê Mateus Gil. Todos os direitos reservados.</p>
+            <p>&copy; 2026 Cauê Mateus Gil</p>
         </footer>
     </div>
 </body>
