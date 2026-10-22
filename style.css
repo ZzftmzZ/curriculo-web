@@ -126,8 +126,7 @@ html.dark .chip.on { color: #04121f; }
 
 /* Floating buttons */
 .fab { position: fixed; right: 1rem; z-index: 50; width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; text-decoration: none; box-shadow: 0 8px 20px -4px rgba(0,0,0,.35); }
-.fab.wa { bottom: 1rem; background: #25d366; color: #fff; }
-.fab.top { bottom: 4.6rem; background: var(--card); color: var(--text); border: 1px solid var(--line); font-size: 1.3rem; }
+.fab.top { bottom: 1rem; background: var(--card); color: var(--text); border: 1px solid var(--line); font-size: 1.3rem; }
 
 footer { text-align: center; padding: 2rem 1rem 5rem; color: var(--muted); font-size: .88rem; border-top: 1px solid var(--line); }
 
@@ -159,10 +158,25 @@ footer { text-align: center; padding: 2rem 1rem 5rem; color: var(--muted); font-
   .lead { font-size: 1.1rem; }
   .card, .proj { transition: transform .25s, border-color .25s; }
   .card:hover, .proj:hover { transform: translateY(-4px); border-color: color-mix(in srgb, var(--brand) 50%, var(--line)); }
-  .contacts { grid-template-columns: repeat(3, 1fr); }
-  .fab.wa { bottom: 1.5rem; right: 1.5rem; } .fab.top { bottom: 5.2rem; right: 1.5rem; }
+    .fab.top { bottom: 1.5rem; right: 1.5rem; }
   footer { padding-bottom: 2rem; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}
+
+/* Global search */
+.srch-btn { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; width: 42px; }
+.srch-t { display: none; font: inherit; font-size: .85rem; font-weight: 600; }
+.sp { position: fixed; top: 63px; left: 0; right: 0; z-index: 39; padding: .8rem 1rem; background: var(--alt); border-bottom: 1px solid var(--line); box-shadow: var(--shadow); }
+.sp-in { max-width: 640px; margin: 0 auto; }
+.res { list-style: none; margin-top: .5rem; max-height: 55vh; overflow-y: auto; }
+.res a { display: flex; justify-content: space-between; align-items: center; gap: 1rem; min-height: 48px; padding: .6rem .9rem; border-radius: 12px; text-decoration: none; font-weight: 600; }
+.res a:hover, .res a:focus-visible { background: var(--brand-soft); }
+.res small { font-family: 'JetBrains Mono', monospace; font-size: .7rem; color: var(--brand); font-weight: 500; }
+.res .none { padding: .8rem .9rem; color: var(--muted); }
+@media (min-width: 960px) {
+  .srch-btn { width: auto; padding: 0 1rem; }
+  .srch-t { display: inline; }
+  .sp { top: 72px; }
 }

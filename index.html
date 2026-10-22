@@ -113,11 +113,22 @@
                 <a href="#contact">Contato</a>
             </nav>
             <div class="actions">
+                <button class="icon-btn srch-btn" id="sbtn" type="button" aria-label="Buscar no site" aria-expanded="false" aria-controls="sp"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="srch-t">Buscar</span></button>
                 <button class="icon-btn" id="theme" type="button" aria-label="Alternar tema">◐</button>
                 <button class="icon-btn burger" id="burger" type="button" aria-label="Abrir menu" aria-expanded="false">☰</button>
             </div>
         </div>
     </header>
+    <div class="sp" id="sp" hidden>
+        <div class="sp-in">
+            <label class="search" for="gq">
+                <span class="sr">Buscar no site</span>
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+                <input id="gq" type="search" placeholder="Buscar no site: Django, Docker, Linux, Senac..." autocomplete="off">
+            </label>
+            <ul class="res" id="res" aria-live="polite"></ul>
+        </div>
+    </div>
 
     <main>
         <section id="hero" class="hero grid-bg">
@@ -245,7 +256,6 @@
                 <div class="head"><p class="tag">Contato</p><h2>Vamos conversar?</h2></div>
                 <p class="about center">Aberto a oportunidades de estágio ou júnior em desenvolvimento backend e infraestrutura.</p>
                 <ul class="contacts">
-                    <li><a href="https://wa.me/5516997329180" target="_blank" rel="noopener noreferrer"><b>WhatsApp</b><span>+55 (16) 99732-9180</span></a></li>
                     <li><a href="tel:+5516997329180"><b>Telefone</b><span>+55 (16) 99732-9180</span></a></li>
                     <li><a href="mailto:caue.mgil@gmail.com"><b>E-mail</b><span>caue.mgil@gmail.com</span></a></li>
                     <li><a href="https://www.linkedin.com/in/cauê-gil/" target="_blank" rel="noopener noreferrer"><b>LinkedIn</b><span>cauê-gil</span></a></li>
@@ -254,8 +264,6 @@
             </div>
         </section>
     </main>
-
-    <a href="https://wa.me/5516997329180" target="_blank" rel="noopener noreferrer" class="fab wa" aria-label="Conversar no WhatsApp"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.6A8.4 8.4 0 1 1 21 11.5Z"/></svg></a>
     <a href="#hero" class="fab top" id="top" aria-label="Voltar ao topo" hidden>↑</a>
 
     <footer><p>&copy; 2026 Cauê Mateus Gil</p></footer>
@@ -286,6 +294,37 @@
           });
         }, { rootMargin: '-45% 0px -50% 0px' });
         document.querySelectorAll('main section[id]').forEach(function (s) { io.observe(s); });
+        var sp = document.getElementById('sp'), sbtn = document.getElementById('sbtn'), gq = document.getElementById('gq'), res = document.getElementById('res'), idx = [];
+        function add(type, label, el, text) {
+          if (!el.id) el.id = 's-' + idx.length;
+          idx.push({ type: type, label: label, id: el.id, text: (label + ' ' + text).toLowerCase() });
+        }
+        menu.querySelectorAll('a').forEach(function (a) { var t = document.querySelector(a.getAttribute('href')); if (t) add('Seção', a.textContent, t, ''); });
+        document.querySelectorAll('#skills .card').forEach(function (c) { add('Tecnologia', c.querySelector('h3').textContent, c, c.textContent); });
+        document.querySelectorAll('#plist .proj').forEach(function (c) { add('Projeto', c.querySelector('h3').textContent, c, c.dataset.search); });
+        document.querySelectorAll('.timeline li').forEach(function (c) { add('Experiência', c.querySelector('h3').textContent, c, c.textContent); });
+        document.querySelectorAll('#education .card').forEach(function (c) { add('Formação', c.querySelector('h3').textContent, c, c.textContent); });
+        document.querySelectorAll('#contact .contacts a').forEach(function (c) { add('Contato', c.querySelector('b').textContent, c, c.textContent); });
+        function render() {
+          var t = gq.value.trim().toLowerCase(); res.innerHTML = '';
+          if (!t) return;
+          var hits = idx.filter(function (r) { return r.text.indexOf(t) > -1; }).slice(0, 8);
+          if (!hits.length) { var li = document.createElement('li'); li.className = 'none'; li.textContent = 'Nada encontrado.'; res.appendChild(li); return; }
+          hits.forEach(function (r) {
+            var li = document.createElement('li'), a = document.createElement('a');
+            a.href = '#' + r.id; a.innerHTML = '<span></span><small></small>';
+            a.firstChild.textContent = r.label; a.lastChild.textContent = r.type;
+            li.appendChild(a); res.appendChild(li);
+          });
+        }
+        function openSearch(o) {
+          sp.hidden = !o; sbtn.setAttribute('aria-expanded', o);
+          if (o) gq.focus(); else { gq.value = ''; res.innerHTML = ''; }
+        }
+        sbtn.addEventListener('click', function () { openSearch(sp.hidden); });
+        gq.addEventListener('input', render);
+        res.addEventListener('click', function (e) { if (e.target.closest('a')) openSearch(false); });
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !sp.hidden) { openSearch(false); sbtn.focus(); } });
         var q = document.getElementById('q'), cards = document.querySelectorAll('#plist .proj'), cnt = document.getElementById('count'), emp = document.getElementById('empty'), chips = document.querySelectorAll('.filters .chip'), flt = 'all';
         function apply() {
           var t = q.value.trim().toLowerCase(), n = 0;
