@@ -16,3 +16,10 @@ jobs:
 
       - name: Teste simples
         run: echo 'O GitHub Actions está configurado e rodando!'
+
+      - name: Validar integridade dos arquivos
+        run: |
+          test -f index.html || { echo "index.html não encontrado!"; exit 1; }
+          test -f style.css || { echo "style.css não encontrado!"; exit 1; }
+          test -f curriculo.pdf || { echo "curriculo.pdf não encontrado!"; exit 1; }
+          echo "Todos os arquivos estáticos essenciais estão presentes!"
