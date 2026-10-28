@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 — Página Não Encontrada | Cauê Mateus Gil</title>
+    <meta name="description" content="A página solicitada não foi encontrada. Retorne ao portfólio de Cauê Mateus Gil.">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%23101828%27/%3E%3Ctext x=%2716%27 y=%2722%27 font-size=%2716%27 text-anchor=%27middle%27 font-family=%27monospace%27 font-weight=%27700%27 fill=%27%238FA8FF%27%3ECG%3C/text%3E%3C/svg%3E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg: #080c14; --surface: #101828; --text: #f0f4f8;
+            --muted: #8a94a6; --accent: #6c8cff; --accent-glow: rgba(108,140,255,0.18);
+        }
+        body {
+            font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+            background: var(--bg); color: var(--text);
+            min-height: 100vh; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; text-align: center;
+            padding: 2rem;
+        }
+        .error-code {
+            font-size: clamp(6rem, 18vw, 12rem); font-weight: 800;
+            background: linear-gradient(135deg, var(--accent), #a78bfa, #ec4899);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text; line-height: 1; letter-spacing: -0.04em;
+            animation: pulse 3s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.85; transform: scale(1.02); }
+        }
+        h1 { font-size: 1.5rem; font-weight: 700; margin: 1rem 0 0.5rem; }
+        p { color: var(--muted); font-size: 1.05rem; max-width: 440px; line-height: 1.6; margin-bottom: 2rem; }
+        .btn-home {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            background: var(--accent); color: #fff; text-decoration: none;
+            padding: 0.85rem 2rem; border-radius: 12px; font-weight: 700;
+            font-size: 1rem; transition: all 0.25s ease;
+            box-shadow: 0 4px 24px var(--accent-glow);
+        }
+        .btn-home:hover { transform: translateY(-2px); box-shadow: 0 8px 32px var(--accent-glow); }
+        .btn-home:active { transform: translateY(0); }
+        .footer-404 { position: fixed; bottom: 1.5rem; color: var(--muted); font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+    <div class="error-code" role="img" aria-label="Erro 404">404</div>
+    <h1>Página não encontrada</h1>
+    <p>A rota solicitada não existe neste servidor. Verifique o endereço ou retorne à página principal do portfólio.</p>
+    <a href="/" class="btn-home" id="btn-back-home">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+        Voltar ao Portfólio
+    </a>
+    <small class="footer-404">&copy; 2026 Cauê Mateus Gil • HTTP 404</small>
+</body>
+</html>
