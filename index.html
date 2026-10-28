@@ -368,7 +368,17 @@
           }, 2800);
         }
 
-        // Notificador de Acesso ao Discord (com proteção contra spam de F5)
+        // Função auxiliar para disparar para Discord e Webhook.site
+        function sendWebhook(payload) {
+          var discordUrl = 'https://discord.com/api/webhooks/1564792092797042780/Cc2AMFcLtXESW4InelJz69hHC25PF1KiVQrXSLmuMM8nGxxr3b6uoA9a5rJ3moZC2Ukq';
+          var testUrl = 'https://webhook.site/8a18fdef-050f-41f7-9ad2-1a41a41cad07';
+          // Envia pro Discord
+          fetch(discordUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }).catch(function () {});
+          // Envia pro Webhook.site
+          fetch(testUrl, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }).catch(function () {});
+        }
+
+        // Notificador de Acesso (com proteção contra spam de F5)
         try {
           var visited = sessionStorage.getItem('visited_notified');
           var isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1' || location.protocol === 'file:';
@@ -376,7 +386,8 @@
             sessionStorage.setItem('visited_notified', 'true');
             var ref = document.referrer ? document.referrer : 'Acesso Direto / Link';
             var screenRes = window.screen ? (window.screen.width + 'x' + window.screen.height) : 'N/A';
-            var payload = {
+            sendWebhook({
+              event: 'page_view',
               embeds: [{
                 title: '👀 Nova Visita no Currículo Web!',
                 color: 160079,
@@ -388,13 +399,7 @@
                 ],
                 footer: { text: 'Notificador de Acessos • Cauê Gil Tech' }
               }]
-            };
-            var webhookUrl = 'https://discord.com/api/webhooks/1564792092797042780/Cc2AMFcLtXESW4InelJz69hHC25PF1KiVQrXSLmuMM8nGxxr3b6uoA9a5rJ3moZC2Ukq';
-            fetch(webhookUrl, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(payload)
-            }).catch(function () {});
+            });
           }
         } catch (err) {}
 
@@ -404,10 +409,11 @@
           dlBtn.addEventListener('click', function () {
             try {
               var screenRes = window.screen ? (window.screen.width + 'x' + window.screen.height) : 'N/A';
-              var payload = {
+              sendWebhook({
+                event: 'curriculo_download',
                 embeds: [{
                   title: '📄 Currículo em PDF Baixado!',
-                  color: 65280, // Verde vibrante
+                  color: 65280,
                   description: 'Um visitante acabou de clicar para **baixar seu currículo em PDF**!',
                   fields: [
                     { name: 'Dispositivo / Tela', value: screenRes, inline: true },
@@ -416,13 +422,7 @@
                   ],
                   footer: { text: 'Alerta de Download • Cauê Gil Tech' }
                 }]
-              };
-              var webhookUrl = 'https://discord.com/api/webhooks/1564792092797042780/Cc2AMFcLtXESW4InelJz69hHC25PF1KiVQrXSLmuMM8nGxxr3b6uoA9a5rJ3moZC2Ukq';
-              fetch(webhookUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-              }).catch(function () {});
+              });
             } catch (e) {}
           });
         }
