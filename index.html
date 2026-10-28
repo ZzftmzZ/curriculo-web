@@ -367,6 +367,36 @@
             setTimeout(function () { i = (i + 1) % phrases.length; el.textContent = phrases[i]; el.classList.remove('fade'); }, 300);
           }, 2800);
         }
+
+        // Notificador de Acesso ao Discord (com proteção contra spam de F5)
+        try {
+          var visited = sessionStorage.getItem('visited_notified');
+          var isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1' || location.protocol === 'file:';
+          if (!visited && !isLocal) {
+            sessionStorage.setItem('visited_notified', 'true');
+            var ref = document.referrer ? document.referrer : 'Acesso Direto / Link';
+            var screenRes = window.screen ? (window.screen.width + 'x' + window.screen.height) : 'N/A';
+            var payload = {
+              embeds: [{
+                title: '👀 Nova Visita no Currículo Web!',
+                color: 160079,
+                fields: [
+                  { name: 'Dispositivo / Tela', value: screenRes, inline: true },
+                  { name: 'Origem (Referrer)', value: ref.length > 50 ? ref.substring(0, 47) + '...' : ref, inline: true },
+                  { name: 'Horário', value: new Date().toLocaleString('pt-BR'), inline: true },
+                  { name: 'Página / Seção', value: location.href, inline: false }
+                ],
+                footer: { text: 'Notificador de Acessos • Cauê Gil Tech' }
+              }]
+            };
+            var webhookUrl = 'https://discord.com/api/webhooks/1564792092797042780/Cc2AMFcLtXESW4InelJz69hHC25PF1KiVQrXSLmuMM8nGxxr3b6uoA9a5rJ3moZC2Ukq';
+            fetch(webhookUrl, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(payload)
+            }).catch(function () {});
+          }
+        } catch (err) {}
       })();
     </script>
 </body>
