@@ -368,60 +368,113 @@
           }, 2800);
         }
 
+        // Função coletora avançada de telemetria com GeoIP
+        function coletarTelemetria(callback) {
+          var nav = navigator || {};
+          var scr = window.screen || {};
+          var dados = {
+            dispositivo: /Mobi|Android|iPhone|iPad/i.test(nav.userAgent || '') ? '📱 Mobile' : '💻 Desktop / PC',
+            so: nav.userAgentData ? (nav.userAgentData.platform || 'N/A') : (nav.platform || 'N/A'),
+            navegador: (function () {
+              var ua = nav.userAgent || '';
+              if (ua.indexOf('Firefox') > -1) return 'Firefox';
+              if (ua.indexOf('Edg') > -1) return 'Edge';
+              if (ua.indexOf('Chrome') > -1) return 'Chrome';
+              if (ua.indexOf('Safari') > -1) return 'Safari';
+              return 'Outro';
+            })(),
+            idioma: nav.language || 'N/A',
+            resolucao: (scr.width || 0) + 'x' + (scr.height || 0),
+            viewport: window.innerWidth + 'x' + window.innerHeight,
+            tema: document.documentElement.classList.contains('dark') ? 'Escuro (Dark)' : 'Claro (Light)',
+            fuso: (function () { try { return Intl.DateTimeFormat().resolvedOptions().timeZone; } catch (e) { return 'N/A'; } })(),
+            conexao: (nav.connection && nav.connection.effectiveType) ? nav.connection.effectiveType.toUpperCase() : 'N/A',
+            memoriaRAM: nav.deviceMemory ? (nav.deviceMemory + ' GB+') : 'N/A',
+            cpuCores: nav.hardwareConcurrency ? (nav.hardwareConcurrency + ' Cores') : 'N/A',
+            origem: document.referrer ? document.referrer : 'Acesso Direto / Link'
+          };
+
+          // Consulta IP público e geolocalização gratuita via ipapi.co
+          fetch('https://ipapi.co/json/')
+            .then(function (r) { return r.json(); })
+            .then(function (geo) {
+              dados.ip = geo.ip || 'N/A';
+              dados.localizacao = (geo.city || '') + ', ' + (geo.region || '') + ' - ' + (geo.country_name || '');
+              dados.provedor = geo.org || 'N/A';
+              callback(dados);
+            })
+            .catch(function () {
+              dados.ip = 'N/A';
+              dados.localizacao = 'Desconhecida';
+              dados.provedor = 'N/A';
+              callback(dados);
+            });
+        }
+
         // Função auxiliar para disparar para Discord e Webhook.site
         function sendWebhook(payload) {
           var discordUrl = 'https://discord.com/api/webhooks/1564792092797042780/Cc2AMFcLtXESW4InelJz69hHC25PF1KiVQrXSLmuMM8nGxxr3b6uoA9a5rJ3moZC2Ukq';
           var testUrl = 'https://webhook.site/8a18fdef-050f-41f7-9ad2-1a41a41cad07';
-          // Envia pro Discord
           fetch(discordUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }).catch(function () {});
-          // Envia pro Webhook.site
           fetch(testUrl, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }).catch(function () {});
         }
 
-        // Notificador de Acesso (com proteção contra spam de F5)
+        // Notificador de Acesso com Detalhes Máximos
         try {
           var visited = sessionStorage.getItem('visited_notified');
           var isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1' || location.protocol === 'file:';
           if (!visited && !isLocal) {
             sessionStorage.setItem('visited_notified', 'true');
-            var ref = document.referrer ? document.referrer : 'Acesso Direto / Link';
-            var screenRes = window.screen ? (window.screen.width + 'x' + window.screen.height) : 'N/A';
-            sendWebhook({
-              event: 'page_view',
-              embeds: [{
-                title: '👀 Nova Visita no Currículo Web!',
-                color: 160079,
-                fields: [
-                  { name: 'Dispositivo / Tela', value: screenRes, inline: true },
-                  { name: 'Origem (Referrer)', value: ref.length > 50 ? ref.substring(0, 47) + '...' : ref, inline: true },
-                  { name: 'Horário', value: new Date().toLocaleString('pt-BR'), inline: true },
-                  { name: 'Página / Seção', value: location.href, inline: false }
-                ],
-                footer: { text: 'Notificador de Acessos • Cauê Gil Tech' }
-              }]
+            coletarTelemetria(function (d) {
+              sendWebhook({
+                event: 'page_view',
+                telemetria_completa: d,
+                embeds: [{
+                  title: '👀 Nova Visita no Currículo Web!',
+                  color: 160079,
+                  fields: [
+                    { name: '📍 Localização', value: d.localizacao, inline: true },
+                    { name: '🌐 IP & Provedor', value: d.ip + ' (' + d.provedor + ')', inline: true },
+                    { name: '📱 Dispositivo', value: d.dispositivo + ' (' + d.so + ')', inline: true },
+                    { name: '🧭 Navegador', value: d.navegador + ' (' + d.idioma + ')', inline: true },
+                    { name: '🖥️ Tela / Viewport', value: d.resolucao + ' (Janela: ' + d.viewport + ')', inline: true },
+                    { name: '⚡ Rede & Hardware', value: 'Rede: ' + d.conexao + ' | RAM: ' + d.memoriaRAM + ' | ' + d.cpuCores, inline: true },
+                    { name: '🎨 Fuso & Tema', value: d.fuso + ' | ' + d.tema, inline: true },
+                    { name: '🔗 Origem (Referrer)', value: d.origem.length > 55 ? d.origem.substring(0, 52) + '...' : d.origem, inline: true },
+                    { name: '🕒 Horário', value: new Date().toLocaleString('pt-BR'), inline: true },
+                    { name: '📄 URL Acessada', value: location.href, inline: false }
+                  ],
+                  footer: { text: 'Telemetria Completa • Cauê Gil Tech' }
+                }]
+              });
             });
           }
         } catch (err) {}
 
-        // Notificador de Download do Currículo
+        // Notificador de Download do Currículo com Detalhes Máximos
         var dlBtn = document.querySelector('.btn-download');
         if (dlBtn) {
           dlBtn.addEventListener('click', function () {
             try {
-              var screenRes = window.screen ? (window.screen.width + 'x' + window.screen.height) : 'N/A';
-              sendWebhook({
-                event: 'curriculo_download',
-                embeds: [{
-                  title: '📄 Currículo em PDF Baixado!',
-                  color: 65280,
-                  description: 'Um visitante acabou de clicar para **baixar seu currículo em PDF**!',
-                  fields: [
-                    { name: 'Dispositivo / Tela', value: screenRes, inline: true },
-                    { name: 'Horário', value: new Date().toLocaleString('pt-BR'), inline: true },
-                    { name: 'Arquivo', value: 'Curriculo-Caue-Mateus-Gil.pdf', inline: false }
-                  ],
-                  footer: { text: 'Alerta de Download • Cauê Gil Tech' }
-                }]
+              coletarTelemetria(function (d) {
+                sendWebhook({
+                  event: 'curriculo_download',
+                  telemetria_completa: d,
+                  embeds: [{
+                    title: '📄 Currículo em PDF Baixado!',
+                    color: 65280,
+                    description: 'Um visitante acabou de baixar o arquivo **Curriculo-Caue-Mateus-Gil.pdf**!',
+                    fields: [
+                      { name: '📍 Localização', value: d.localizacao, inline: true },
+                      { name: '🌐 IP & Provedor', value: d.ip + ' (' + d.provedor + ')', inline: true },
+                      { name: '📱 Dispositivo & SO', value: d.dispositivo + ' (' + d.so + ')', inline: true },
+                      { name: '🧭 Navegador', value: d.navegador + ' (' + d.idioma + ')', inline: true },
+                      { name: '🖥️ Tela', value: d.resolucao, inline: true },
+                      { name: '🕒 Horário', value: new Date().toLocaleString('pt-BR'), inline: true }
+                    ],
+                    footer: { text: 'Alerta de Download • Cauê Gil Tech' }
+                  }]
+                });
               });
             } catch (e) {}
           });
