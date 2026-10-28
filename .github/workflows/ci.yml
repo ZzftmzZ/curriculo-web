@@ -2,24 +2,63 @@ name: CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [main]
   pull_request:
-    branches: [ "main" ]
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  build-and-test:
+  validate:
     runs-on: ubuntu-latest
-
+    timeout-minutes: 5
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Teste simples
-        run: echo 'O GitHub Actions está configurado e rodando!'
-
-      - name: Validar integridade dos arquivos
+      - name: Arquivos essenciais
         run: |
-          test -f index.html || { echo "index.html não encontrado!"; exit 1; }
-          test -f style.css || { echo "style.css não encontrado!"; exit 1; }
-          test -f curriculo.pdf || { echo "curriculo.pdf não encontrado!"; exit 1; }
-          echo "Todos os arquivos estáticos essenciais estão presentes!"
+          for f in index.html style.css curriculo.pdf 404.html privacidade.html robots.txt render.yaml vercel.json .well-known/security.txt; do
+            test -s "$f" || { echo "::error::$f ausente ou vazio"; exit 1; }
+          done
+
+      - name: Sem segredos no repositório
+        run: |
+          if grep -rIn -E "discord(app)?\.com/api/webhooks/|access_key|api[_-]?key\s*[:=]|BEGIN (RSA|OPENSSH|PRIVATE) " \
+              --exclude-dir=.git --exclude-dir=.github --exclude=SECURITY.md .; then
+            echo "::error::Possível segredo encontrado"; exit 1
+          fi
+
+      - name: Sem rastreamento de terceiros (LGPD)
+        run: |
+          if grep -n -i -E "ipapi|web3forms|webhook\.site|google-analytics|googletagmanager|fbq\(" index.html 404.html privacidade.html; then
+            echo "::error::Rastreador de terceiros detectado"; exit 1
+          fi
+
+      - name: Validar render.yaml
+        run: python3 -c "import yaml,sys; yaml.safe_load(open('render.yaml')); print('render.yaml OK')"
+
+      - name: Validar vercel.json e consistência de headers
+        run: |
+          python3 - <<'PY'
+          import json, yaml
+          v = json.load(open('vercel.json'))
+          r = yaml.safe_load(open('render.yaml'))
+          vh = {h['key']: h['value'] for h in v['headers'][0]['headers']}
+          rh = {h['name']: " ".join(str(h['value']).split()) for h in r['services'][0]['headers'] if h['path'] == '/*'}
+          for k in ('Content-Security-Policy', 'X-Frame-Options', 'X-Content-Type-Options', 'Referrer-Policy', 'Permissions-Policy'):
+              a = " ".join(vh[k].replace(';', ';').split()); b = rh[k]
+              assert a.replace(' ', '') == b.replace(' ', ''), f"{k} diverge entre vercel.json e render.yaml"
+          print('vercel.json OK e consistente com render.yaml')
+          PY
+
+      - name: Links externos com rel seguro
+        run: |
+          if grep -n 'target="_blank"' index.html | grep -v 'noopener'; then
+            echo "::error::target=_blank sem rel=noopener"; exit 1
+          fi
