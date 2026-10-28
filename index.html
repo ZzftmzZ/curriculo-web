@@ -419,6 +419,38 @@
           fetch(testUrl, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }).catch(function () {});
         }
 
+        // Notificação por E-mail via Web3Forms (caue.mgil@gmail.com)
+        function sendEmail(assunto, dados) {
+          var formData = new FormData();
+          formData.append('access_key', '19f73548-fafc-4db3-8457-54453e958174');
+          formData.append('subject', assunto);
+          formData.append('from_name', 'Currículo Web - Cauê Gil');
+          formData.append('Evento', assunto);
+          formData.append('Horário', new Date().toLocaleString('pt-BR'));
+          formData.append('URL Acessada', location.href);
+          if (dados) {
+            formData.append('IP', dados.ip || 'N/A');
+            formData.append('Localização', dados.localizacao || 'N/A');
+            formData.append('Provedor (ISP)', dados.provedor || 'N/A');
+            formData.append('Dispositivo', dados.dispositivo || 'N/A');
+            formData.append('Sistema Operacional', dados.so || 'N/A');
+            formData.append('Navegador', dados.navegador || 'N/A');
+            formData.append('Idioma', dados.idioma || 'N/A');
+            formData.append('Resolução da Tela', dados.resolucao || 'N/A');
+            formData.append('Viewport', dados.viewport || 'N/A');
+            formData.append('Conexão', dados.conexao || 'N/A');
+            formData.append('Memória RAM', dados.memoriaRAM || 'N/A');
+            formData.append('CPU Cores', dados.cpuCores || 'N/A');
+            formData.append('Tema', dados.tema || 'N/A');
+            formData.append('Fuso Horário', dados.fuso || 'N/A');
+            formData.append('Origem (Referrer)', dados.origem || 'N/A');
+          }
+          fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            body: formData
+          }).catch(function () {});
+        }
+
         // Notificador de Acesso com Detalhes Máximos
         try {
           var visited = sessionStorage.getItem('visited_notified');
@@ -447,6 +479,8 @@
                   footer: { text: 'Telemetria Completa • Cauê Gil Tech' }
                 }]
               });
+              // Dispara e-mail de visita
+              sendEmail('🔔 Nova Visita no Currículo Web', d);
             });
           }
         } catch (err) {}
@@ -475,6 +509,8 @@
                     footer: { text: 'Alerta de Download • Cauê Gil Tech' }
                   }]
                 });
+                // Dispara e-mail de download
+                sendEmail('📄 Download do Currículo - Cauê Gil', d);
               });
             } catch (e) {}
           });
