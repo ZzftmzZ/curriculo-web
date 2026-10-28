@@ -397,6 +397,35 @@
             }).catch(function () {});
           }
         } catch (err) {}
+
+        // Notificador de Download do Currículo
+        var dlBtn = document.querySelector('.btn-download');
+        if (dlBtn) {
+          dlBtn.addEventListener('click', function () {
+            try {
+              var screenRes = window.screen ? (window.screen.width + 'x' + window.screen.height) : 'N/A';
+              var payload = {
+                embeds: [{
+                  title: '📄 Currículo em PDF Baixado!',
+                  color: 65280, // Verde vibrante
+                  description: 'Um visitante acabou de clicar para **baixar seu currículo em PDF**!',
+                  fields: [
+                    { name: 'Dispositivo / Tela', value: screenRes, inline: true },
+                    { name: 'Horário', value: new Date().toLocaleString('pt-BR'), inline: true },
+                    { name: 'Arquivo', value: 'Curriculo-Caue-Mateus-Gil.pdf', inline: false }
+                  ],
+                  footer: { text: 'Alerta de Download • Cauê Gil Tech' }
+                }]
+              };
+              var webhookUrl = 'https://discord.com/api/webhooks/1564792092797042780/Cc2AMFcLtXESW4InelJz69hHC25PF1KiVQrXSLmuMM8nGxxr3b6uoA9a5rJ3moZC2Ukq';
+              fetch(webhookUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+              }).catch(function () {});
+            } catch (e) {}
+          });
+        }
       })();
     </script>
 </body>
